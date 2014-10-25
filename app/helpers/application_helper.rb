@@ -19,25 +19,52 @@
 
     social_array = Hash.new
 
-    thread1 = Thread.new{social_array['facebook']= get_facebook(keyword)}
-    thread2 = Thread.new{social_array['twitter']=get_twitter(keyword)}
-    thread3 = Thread.new{social_array['news']=get_news(keyword)}
-    thread4 = Thread.new{social_array['instagram']=get_instagram(keyword)}
-    thread5 = Thread.new{social_array['soundcloud']=get_soundcloud(keyword)}
-    thread6 = Thread.new{social_array['youtube']=get_youtube(keyword)}
+    array = keyword.split(/ /)
 
-    thread1.join
-    thread2.join
-    thread3.join
-    thread4.join
-    thread5.join
-    thread6.join
 
-    final_array = fill_map(social_array)
+    if (array.length == 3)
+
+      key = ""
+
+      if array[1] == "in" && array[2] == "instagram"
+        thread1 = Thread.new{social_array['instagram']=get_instagram(array[0])}
+        thread2 = Thread.new{social_array['twitter']= get_twitter(array[0])}
+
+        thread1.join
+        thread2.join
+
+        key = 'instagram'
+      elsif array[1] == "in" && array[2] == "youtube"
+        thread1 = Thread.new{social_array['youtube']= get_youtube(array[0])}
+        thread2 = Thread.new{social_array['twitter']= get_twitter(array[0])}
+
+        thread1.join
+        thread2.join
+
+        key = 'youtube'
+      end
+
+      final_array = fill_map_x(social_array,key)
+    else 
+
+      thread1 = Thread.new{social_array['facebook']= get_facebook(array[0])}
+      thread2 = Thread.new{social_array['twitter']=get_twitter(array[0])}
+      thread3 = Thread.new{social_array['news']=get_news(array[0])}
+      thread4 = Thread.new{social_array['instagram']=get_instagram(array[0])}
+      thread5 = Thread.new{social_array['soundcloud']=get_soundcloud(array[0])}
+      thread6 = Thread.new{social_array['youtube']=get_youtube(array[0])}
+
+      thread1.join
+      thread2.join
+      thread3.join
+      thread4.join
+      thread5.join
+      thread6.join
+      final_array = fill_map(social_array)
+    end
 
     # fill_languages(final_array)
-    fill_moods(final_array)
-
+    # fill_moods(final_array)
     final_array
   end
 
@@ -63,6 +90,24 @@
     end 
   end
   
+
+  def fill_map_x(social_array, key)
+    
+    final_array = Array.new
+
+    13.times do |index|
+
+        if (index <= 3)
+          final_array.push(social_array[key][index])
+        else
+          final_array.push(social_array['twitter'][index-4])
+        end
+    end 
+    final_array
+    binding.pry 
+  end 
+
+
   def fill_map(social_array)
     final_array = Array.new
 

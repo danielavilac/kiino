@@ -66,5 +66,9 @@ class InstagramWrapper
   def language=(text)
     @language = text
   end
+
+  def size=(text)
+    @size = text
+  end
   
 end
