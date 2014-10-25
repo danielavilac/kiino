@@ -15,6 +15,7 @@ gem 'rest-client'
 gem 'twitter'
 gem 'soundcloud'
 gem 'bing_translator'
+gem 'textalytics'
 
 group :development do
   gem 'rails_layout'

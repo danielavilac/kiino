@@ -35,7 +35,7 @@ module ApplicationHelper
       object['date'] = Time.parse(track.created_at).strftime("%d %B %Y")
       object['title'] = track.title
       object['user'] = track.user.username
-      object['embed_html'] = client.get('/oembed', :url => track.uri, :show_comments => false, :maxheight => 200).html
+      #object['embed_html'] = client.get('/oembed', :url => track.uri, :show_comments => false, :maxheight => 200).html
       tracks_array.push(object)
     end
     tracks_array
@@ -67,6 +67,16 @@ module ApplicationHelper
         news_array.push(News.new(element))
     end
     news_array
+  end
+
+  def get_mood()
+    t = Textalytics::Client.new(sentiment: "969ea3102d79b9a99d4869728e439b62", classification: "969ea3102d79b9a99d4869728e439b62")
+    movie_sentiment = t.sentiment(txt: 'The movie was terrible, never see a movie of that director. Even the actors are bad.', model: 'en-general')
+
+  end
+  def get_language(keyword)
+    translator = BingTranslator.new('global_hackathon', 'iBUAYiP/ycj3WeEeDiz35nX8Ns9x/OXQJCKWXOt3UAc=')
+    locale = translator.detect "#{keyword}"
   end
 
 end
