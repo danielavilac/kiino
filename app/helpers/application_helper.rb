@@ -240,4 +240,8 @@
     end
     facebook_array
   end
+
+  def define_colors
+    ["#f3b300", "#02a458", "#e12e21", "#4279f9"].sample
+  end
 end

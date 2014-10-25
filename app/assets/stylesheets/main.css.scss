@@ -40,6 +40,7 @@ main {
   padding-right: 15px;
   float: left;
   overflow: hidden;
+  padding: 5px;
 }
 .tumblr-4 {
   width: 40%;
@@ -49,6 +50,7 @@ main {
   padding-right: 15px;
   float: left;
   overflow: hidden;
+  padding: 5px;
 }
 iframe {
   // position: relative;
@@ -57,4 +59,13 @@ iframe {
 .instagram {
   background-position: center;
   background-size: cover;
+  font-size: 12px;
+  border-top: solid 4px;
+  // color: #eaeaea;
+}
+.time {
+  float: left;
+}
+.date {
+  float: right;
 }
