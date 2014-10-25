@@ -1,5 +1,7 @@
 <div id="fullpage">
-  <div class="section main-section">
+  <% nice = nice_combinations %>
+  <div class="section main-section" style="background-color: <%= nice[0] %>">
+    <%= image_tag nice[1], class: "main_logo" %>
     <%= form_tag search_path, method: :get, remote: true do %>
       <%= text_field_tag :keyword, nil, placeholder: "START TYPING",
        class: "main-search", autocomplete: "off" %>

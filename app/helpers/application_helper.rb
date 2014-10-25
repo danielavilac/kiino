@@ -242,6 +242,27 @@
   end
 
   def define_colors
+    # yellow, green, red, blue
     ["#f3b300", "#02a458", "#e12e21", "#4279f9"].sample
+  end
+
+  def random_logo
+    ["logo_amarillo.png", "logo_azul.png", "logo_rojo.png", "logo_verde.png"].sample
+  end
+
+  def nice_combinations
+    colors = ["#f3b300", "#02a458", "#e12e21", "#4279f9"]
+    backgrounds = ["logo_amarillo.png", "logo_azul.png", "logo_rojo.png", "logo_verde.png"]
+    [
+      [colors[3], backgrounds[2]],
+      [colors[1], backgrounds[0]],
+      [colors[1], backgrounds[2]],
+      [colors[2], backgrounds[1]],
+      [colors[2], backgrounds[1]],
+      [colors[2], backgrounds[3]],
+      [colors[0], backgrounds[1]],
+      [colors[0], backgrounds[2]],
+      [colors[0], backgrounds[3]]
+    ].sample
   end
 end
