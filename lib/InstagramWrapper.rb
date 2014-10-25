@@ -47,15 +47,20 @@ class InstagramWrapper
     @language
   end
 
-  def transalated_text
+  def translated_text
     @translated_text
   end
 
   def data
-    if (@language == 'en') 
       @tags.to_s
-    else
-      @transalated_text
-    end
   end
+
+  def data=(text)
+    @translated_text = text
+  end
+
+  def language=(text)
+    @language = text
+  end
+  
 end

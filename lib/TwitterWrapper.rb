@@ -35,16 +35,20 @@ class TwitterWrapper
     @language
   end
 
-  def transalated_text
+  def translated_text
     @translated_text
   end
 
   def data
-    if (@language == 'en') 
-      @tweet
-    else
-      @transalated_text
-    end
+    @tweet
+  end
+
+  def data=(text)
+    @translated_text = text
+  end
+
+  def language=(text)
+    @language = text
   end
   
 end

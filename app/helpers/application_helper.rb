@@ -38,14 +38,27 @@ module ApplicationHelper
 
     final_array = fill_map(social_array)
 
+    fill_languages(final_array)
+
     final_array
 
   end
 
-  def fill_moods(social_array)
+  def fill_languages(final_array)
 
-    social_array.each do|social_element| 
+    final_array.each do|final_element| 
 
+      if final_element.nil?
+        break;
+      end
+
+      language = get_language(final_element.data)
+      if language != 'en'
+        final_element.language = language
+        final_element.data =  'sa'
+      else 
+        final_element.language ='en'
+      end
     end 
 
   end
@@ -54,7 +67,7 @@ module ApplicationHelper
     final_array = Array.new
 
     3.times do |index|
-      final_array.push(social_array[0][index])
+      final_array.push(social_array[1][index+2])
       final_array.push(social_array[1][index])
       final_array.push(social_array[2][index])
     end
@@ -63,7 +76,7 @@ module ApplicationHelper
     final_array.push(social_array[4][0])
     final_array.push(social_array[5][0])
 
-    final_array.push(social_array[4][0])
+    final_array.push(social_array[0][0])
 
     final_array
   end
@@ -77,7 +90,7 @@ module ApplicationHelper
     end
 
     tweets_array = Array.new
-    search = client.search("##{keyword}", :result_type => "popular", :count => 1)
+    search = client.search("##{keyword}", :result_type => "popular", :count => 5)
     search.each do |element|
       tweets_array.push(TwitterWrapper.new(element))
     end
@@ -89,7 +102,7 @@ module ApplicationHelper
     client = Soundcloud.new(:client_id => ENV['SOUNDCLOUD_CLIENT_ID'])
     
     tracks_array = Array.new
-    tracks = client.get('/tracks', :q => "#{keyword}", :licence => 'cc-by-sa', :limit => 1)
+    tracks = client.get('/tracks', :q => "#{keyword}", :licence => 'cc-by-sa', :limit => 5)
     tracks.each do |element|
       embed = client.get('/oembed', :url => element.uri, :show_comments => false, :maxheight => 200).html
       tracks_array.push(SoundCloudWrapper.new(element, embed))
