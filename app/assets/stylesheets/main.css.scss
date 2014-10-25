@@ -1,5 +1,5 @@
 main {
-  text-align: center;
+  width: 100%;
   .main-section {
     background-color: #4285f4;
   }
@@ -31,4 +31,20 @@ main {
      color: #5695f4;
      text-shadow: none;
   }
+}
+.tumblr-1 {
+  width: 20%;
+  position: absolute;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+  float: left;
+}
+.tumblr-4 {
+  width: 40%;
+  position: absolute;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+  float: left;
 }
