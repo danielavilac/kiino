@@ -40,4 +40,9 @@ class FacebookWrapper
     @mood
   end
 
+  def data
+    @message
+  end
+
+
 end

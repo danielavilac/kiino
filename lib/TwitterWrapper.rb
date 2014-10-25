@@ -5,6 +5,8 @@ class TwitterWrapper
     @tweet = element.text
     @user = element.user.name
     @size = 1
+    @mood = nil
+
   end
 
   def date
@@ -21,6 +23,14 @@ class TwitterWrapper
   
   def size
     @size
+  end
+
+  def mood
+    @mood
+  end
+
+  def data
+    @tweet
   end
   
 end

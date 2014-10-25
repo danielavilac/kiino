@@ -6,22 +6,34 @@ class SoundCloudWrapper
     @user = element.user.username
     @embed_html = embed
     @size = 4
+    @mood = nil
   end
 
   def date
     @date
   end
+  
   def title
     @title
   end
+  
   def user
     @user
   end
+  
   def embed_html
     @embed_html
   end
   
   def size
     @size
+  end
+
+  def mood
+    @mood
+  end
+
+  def data
+    @title
   end
 end

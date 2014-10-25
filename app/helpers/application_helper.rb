@@ -43,7 +43,17 @@ module ApplicationHelper
     social_array.push(youtube_array)
 
     @final_array = fill_map(social_array)
+
+
     @final_array
+
+  end
+
+  def fill_moods(social_array)
+
+    social_array.each do|social_element| 
+
+    end 
 
   end
 
@@ -51,16 +61,16 @@ module ApplicationHelper
     final_array = Array.new
 
     3.times do |index|
-      # final_array.push(social_array[0][index])
-      # final_array.push(social_array[1][index])
-      # final_array.push(social_array[2][index])
+      final_array.push(social_array[0][index])
+      final_array.push(social_array[1][index])
+      final_array.push(social_array[2][index])
     end
 
     final_array.push(social_array[3][0])
-    # final_array.push(social_array[4][0])
-    # final_array.push(social_array[5][0])
+    final_array.push(social_array[4][0])
+    final_array.push(social_array[5][0])
 
-    # final_array.push(social_array[4][0])
+    final_array.push(social_array[4][0])
 
     final_array
   end
@@ -122,9 +132,9 @@ module ApplicationHelper
     news_array
   end
 
-  def get_mood()
+  def get_mood(text)
     t = Textalytics::Client.new(sentiment: "969ea3102d79b9a99d4869728e439b62", classification: "969ea3102d79b9a99d4869728e439b62")
-    movie_sentiment = t.sentiment(txt: 'The movie was terrible, never see a movie of that director. Even the actors are bad.', model: 'en-general')
+    movie_sentiment = t.sentiment(txt: text, model: 'en-general')
 
   end
   def get_language(keyword)

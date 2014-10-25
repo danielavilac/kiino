@@ -5,6 +5,7 @@ class NewsWrapper
   	@title = element["titleNoFormatting"]
   	@url = element["unescapedUrl"]
     @size = 1
+    @mood = nil
   end
 
   def date
@@ -21,5 +22,13 @@ class NewsWrapper
 
   def size
     @size
+  end
+  
+  def mood
+    @mood
+  end
+
+  def data
+    @title
   end
 end

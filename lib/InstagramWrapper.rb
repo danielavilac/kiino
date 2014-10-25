@@ -10,6 +10,7 @@ class InstagramWrapper
     @date = time.strftime("%m %B %Y")
     @photo = element.images.standard_resolution.url
     @size = 4
+    @mood = nil
   end
 
   def id
@@ -35,5 +36,12 @@ class InstagramWrapper
   def size
     @size
   end
+  
+  def mood
+    @mood
+  end
 
+  def data
+    @tags.to_s
+  end
 end

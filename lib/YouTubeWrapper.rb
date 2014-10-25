@@ -7,6 +7,7 @@ class YouTubeWrapper
     @title = element["title"]["$t"]
   	@url = element["link"][0]["href"]
     @size = 4
+    @mood = nil
   end
 
   def date
@@ -23,5 +24,13 @@ class YouTubeWrapper
 
   def size
     @size
+  end
+
+  def mood
+    @mood
+  end
+
+  def data
+    @title
   end
 end
