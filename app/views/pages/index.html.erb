@@ -7,13 +7,7 @@
   </div>
   <div class="section">
     <div class="remote">
-      <% @grid.each do |value| %>
-        <% if value == 1 %>
-          <%= render partial: "pages/frames/big_frame", locals: { top: "0", left: "0" } %>
-        <% elsif value == 2 %>
-          <%= render partial: "pages/frames/small_frame", locals: { top: "0", left: "0" } %>
-        <% end %>
-      <% end %>
+      <%= render partial: "pages/frames/youtube", locals: { top: "0", left: "0" } %>
     </div>
   </div>
 </div>
