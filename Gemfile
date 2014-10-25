@@ -11,6 +11,7 @@ gem 'spring',        group: :development
 gem 'bootstrap-sass'
 gem 'pg'
 gem 'simple_form'
+gem "koala", "~> 1.10.0rc"
 gem 'fb_graph', '~> 2.7.17'
 
 group :development do
