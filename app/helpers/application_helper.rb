@@ -75,7 +75,6 @@ module ApplicationHelper
           i = 0
           new_keyword = popular_keywords[rand(0..4)]
           more_tweets = get_twitter(new_keyword)
-          binding.popular_keywords
           while final_array.size < 25 && i < more_tweets.size
             final_array << more_tweets[i]
             i += 1
