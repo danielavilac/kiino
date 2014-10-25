@@ -1,8 +1,6 @@
 module ApplicationHelper
-
   require 'time'
   require 'rest_client'
-
   require 'YouTubeWrapper'
   require 'NewsWrapper'
   require 'FacebookWrapper'
@@ -14,12 +12,9 @@ module ApplicationHelper
     config.client_id = ENV['INSTRAGRAM_CLIENT_ID']
     config.client_secret = ENV['INSTAGRAM_CLIENT_SECRET']
   end
-
   OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
-  
 
   def makes_magic(keyword)
-
     social_array = Array.new()
 
     thread1 = Thread.new{social_array.push(get_facebook(keyword))}
@@ -37,21 +32,15 @@ module ApplicationHelper
     thread6.join
 
     final_array = fill_map(social_array)
-
     fill_languages(final_array)
-
     final_array
-
   end
 
   def fill_languages(final_array)
-
     final_array.each do|final_element| 
-
       if final_element.nil?
         break;
       end
-
       language = get_language(final_element.data)
       if language != 'en'
         final_element.language = language
@@ -60,9 +49,7 @@ module ApplicationHelper
         final_element.language ='en'
       end
     end 
-
   end
-
   def fill_map(social_array)
     final_array = Array.new
 

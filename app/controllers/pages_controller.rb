@@ -1,8 +1,25 @@
 class PagesController < ApplicationController
   respond_to :html, :js
   require 'Matrix'
+  include ApplicationHelper
 
-  def search; end
+  def search
+    all = makes_magic(params[:keyword])
+    (25 - all.count).times { all << all.last }
+    c = Hash.new(0)
+    all.map(&:class).each { |object| c[object] += 1 }
+    binding.pry
+    big = c[NewsWrapper] + c[InstagramWrapper] + c[SoundCloudWrapper]
+    small = c[FacebookWrapper] + c[TwitterWrapper] + c[NewsWrapper]
+    grid = Matrix[[0, 0, 0, 0, 2],
+                  [0, 0, 0, 0, 2],
+                  [0, 0, 0, 0, 2],
+                  [0, 0, 0, 0, 2],
+                  [2, 2, 2, 2, 2]]
+    
+    big.times { grid = add_big(grid) }
+    @grid = grid
+  end
 
   def index
     big = 4
@@ -15,6 +32,7 @@ class PagesController < ApplicationController
     
     big.times { grid = add_big(grid) }
     @grid = grid
+
   end
 
   private
