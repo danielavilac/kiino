@@ -31,6 +31,10 @@ class TwitterWrapper
     @mood
   end
 
+  def mood=(moods)
+    @mood = moods
+  end
+
   def language
     @language
   end

@@ -1,4 +1,4 @@
-module ApplicationHelper
+ module ApplicationHelper
 
   require 'time'
   require 'rest_client'
@@ -38,7 +38,8 @@ module ApplicationHelper
 
     final_array = fill_map(social_array)
 
-    #fill_languages(final_array)
+    # fill_languages(final_array)
+    fill_moods(final_array)
 
     final_array
 
@@ -47,11 +48,7 @@ module ApplicationHelper
   def fill_languages(final_array)
 
     final_array.each do|final_element| 
-
-      if final_element.nil?
-        break;
-      end
-
+      # binding.pry
       language = get_language(final_element.data)
       if language != 'en'
         final_element.language = language
@@ -60,8 +57,15 @@ module ApplicationHelper
         final_element.language ='en'
       end
     end 
-
   end
+
+  def fill_moods(final_array)
+
+    final_array.each do|final_element| 
+      final_element.mood = get_mood(final_element.data)
+    end 
+  end
+
 
   def fill_map(social_array)
     final_array = Array.new
@@ -195,12 +199,17 @@ module ApplicationHelper
   def get_mood(text)
     t = Textalytics::Client.new(sentiment: "969ea3102d79b9a99d4869728e439b62", classification: "969ea3102d79b9a99d4869728e439b62")
     movie_sentiment = t.sentiment(txt: text, model: 'en-general')
-
+    if movie_sentiment.score_tag.nil?
+      "NEU"
+    else
+      movie_sentiment.score_tag
+    end
   end
 
   def get_language(keyword)
     translator = BingTranslator.new('global_hackathon', 'iBUAYiP/ycj3WeEeDiz35nX8Ns9x/OXQJCKWXOt3UAc=')
     locale = translator.detect "#{keyword}"
+    locale
   end
 
   def get_translation(keyword)
