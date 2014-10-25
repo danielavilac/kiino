@@ -34,7 +34,15 @@ main {
 }
 .tumblr-1 {
   width: 20%;
-  position: relative;
+  position: absolute;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+  float: left;
+}
+.tumblr-4 {
+  width: 40%;
+  position: absolute;
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
