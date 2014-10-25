@@ -1,17 +1,19 @@
-<div class="tumblr-1 news" 
-     style="width: <%= width %>%;
-            height: <%= height %>%;
-            top: <%= top %>%;
-            background-color: <%= define_colors %>;
-            left: <%= left %>%;
-            border-color: <%= define_colors %>;
-            ">
-  <div class="row">
-    <div class="col-xs-12">
-      <div class="date" style= "color: white;"><%= time_ago_in_words current.date %></div>
-    </div>
-    <div class="col-xs-12">
-      <div class="message" style= "color: white;"><%= current.title.truncate(50)%></div>
+<%= link_to current.url, target: "_blank" do %>
+  <div class="tumblr-1 news" 
+       style="width: <%= width %>%;
+              height: <%= height %>%;
+              top: <%= top %>%;
+              background-color: <%= define_colors %>;
+              left: <%= left %>%;
+              border-color: <%= define_colors %>;
+              ">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="date" style= "color: white;"><%= time_ago_in_words current.date %></div>
+      </div>
+      <div class="col-xs-12">
+        <div class="message" style= "color: white;"><%= current.title.truncate(50)%></div>
+      </div>
     </div>
   </div>
-</div>
+<% end %>
