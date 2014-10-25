@@ -49,6 +49,16 @@ class YouTubeWrapper
     @translated_text
   end
 
+  def youtube_id
+    if @url[/youtu\.be\/([^\?]*)/]
+      id = $1
+    else
+      @url[/^.*((v\/)|(embed\/)|(watch\?))\??v?=?([^\&\?]*).*/]
+      id = $5
+    end
+    id
+  end
+
   def data
     @title
   end
