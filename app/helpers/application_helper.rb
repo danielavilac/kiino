@@ -20,14 +20,14 @@ module ApplicationHelper
 
   def makes_magic(keyword)
 
-    social_array = Array.new()
+    social_array = Hash.new
 
-    thread1 = Thread.new{social_array.push(get_facebook(keyword))}
-    thread2 = Thread.new{social_array.push(get_twitter(keyword))}
-    thread3 = Thread.new{social_array.push(get_news(keyword))}
-    thread4 = Thread.new{social_array.push(get_instagram(keyword))}
-    thread5 = Thread.new{social_array.push(get_soundcloud(keyword))}
-    thread6 = Thread.new{social_array.push(get_youtube(keyword))}
+    thread1 = Thread.new{social_array['facebook']= get_facebook(keyword)}
+    thread2 = Thread.new{social_array['twitter']=get_twitter(keyword)}
+    thread3 = Thread.new{social_array['news']=get_news(keyword)}
+    thread4 = Thread.new{social_array['instagram']=get_instagram(keyword)}
+    thread5 = Thread.new{social_array['soundcloud']=get_soundcloud(keyword)}
+    thread6 = Thread.new{social_array['youtube']=get_youtube(keyword)}
 
     thread1.join
     thread2.join
@@ -38,7 +38,7 @@ module ApplicationHelper
 
     final_array = fill_map(social_array)
 
-    fill_languages(final_array)
+    #fill_languages(final_array)
 
     final_array
 
@@ -66,19 +66,73 @@ module ApplicationHelper
   def fill_map(social_array)
     final_array = Array.new
 
-    3.times do |index|
-      final_array.push(social_array[1][index+2])
-      final_array.push(social_array[1][index])
-      final_array.push(social_array[2][index])
+    twitter_elements_acum = 0
+
+
+    facebook_array_length = social_array['facebook'].length
+
+    if facebook_array_length < 3
+      twitter_elements_acum += 3 - facebook_array_length
+      facebook_array_length.times do |index|
+        final_array.push(social_array['facebook'][index])
+        #social_array['facebook'].delete_at(index)
+      end
+    else
+      3.times do |index|
+        final_array.push(social_array['facebook'][index])
+        #social_array['facebook'].delete_at(index)
+      end 
     end
 
-    final_array.push(social_array[3][0])
-    final_array.push(social_array[4][0])
-    final_array.push(social_array[5][0])
 
-    final_array.push(social_array[0][0])
+    news_array_length = social_array['news'].length
+
+    if news_array_length < 3
+      twitter_elements_acum += 3 - news_array_length
+      news_array_length.times do |index|
+        final_array.push(social_array['news'][index])
+        #social_array['news'].delete_at(index)
+      end
+    else
+      3.times do |index|
+        final_array.push(social_array['news'][index])
+        #social_array['news'].delete_at(index)
+      end 
+    end
+
+
+    if social_array['youtube'].length < 1
+      twitter_elements_acum += 1
+    else 
+      final_array.push(social_array['youtube'][0])
+      #social_array['youtube'].delete_at(0)
+    end
+
+    if social_array['soundcloud'].length < 1
+      twitter_elements_acum += 1
+    else
+      final_array.push(social_array['soundcloud'][0])
+      #social_array['soundcloud'].delete_at(0)
+    end
+
+    if social_array['instagram'].length < 1
+      twitter_elements_acum += 1
+    else
+      final_array.push(social_array['instagram'][0])
+      #social_array['instagram'].delete_at(0)
+    end
+
+    twitter_array_length = social_array['twitter'].length
+
+    (twitter_elements_acum + 3).times do |index|  
+      final_array.push(social_array['twitter'][index])
+      #social_array['twitter'].delete_at(index)
+    end
+
+    final_array.push(social_array['instagram'][1]) #
 
     final_array
+
   end
 
   def get_twitter(keyword)
@@ -90,7 +144,7 @@ module ApplicationHelper
     end
 
     tweets_array = Array.new
-    search = client.search("##{keyword}", :result_type => "popular", :count => 5)
+    search = client.search("##{keyword}", :result_type => "popular", :count => 25)
     search.each do |element|
       tweets_array.push(TwitterWrapper.new(element))
     end
@@ -102,7 +156,7 @@ module ApplicationHelper
     client = Soundcloud.new(:client_id => ENV['SOUNDCLOUD_CLIENT_ID'])
     
     tracks_array = Array.new
-    tracks = client.get('/tracks', :q => "#{keyword}", :licence => 'cc-by-sa', :limit => 5)
+    tracks = client.get('/tracks', :q => "#{keyword}", :licence => 'cc-by-sa', :limit => 3)
     tracks.each do |element|
       embed = client.get('/oembed', :url => element.uri, :show_comments => false, :maxheight => 200).html
       tracks_array.push(SoundCloudWrapper.new(element, embed))
