@@ -13,4 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap-sprockets
+//= require jquery.easings.min
+//= require jquery.slimscroll.min
+//= require jquery.fullPage
 //= require_tree .

@@ -1,0 +1,13 @@
+<div id="fullpage">
+  <div class="section main-section">
+    <%= form_tag search_path, method: :get, remote: true do %>
+      <%= text_field_tag :keyword, nil, placeholder: "START TYPING",
+       class: "main-search", autocomplete: "off" %>
+    <% end %>
+  </div>
+  <div class="section">
+    <div class="remote">
+      <p>nothing</p>
+    </div>
+  </div>
+</div>
