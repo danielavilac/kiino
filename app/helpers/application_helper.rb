@@ -16,6 +16,31 @@ module ApplicationHelper
 
   OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
   
+
+  def makes_magic(keyword)
+
+    @social_array = Array.new()
+
+    facebook_array = get_facebook(keyword)
+    instagram_array = get_instagram(keyword)
+    twitter_array = get_twitter(keyword)
+    soundcloud_array = get_soundcloud(keyword)
+    google_news_array = get_news(keyword)
+    youtube_array = get_youtube(keyword)
+
+    @social_array.push(facebook_array)
+    @social_array.push(instagram_array)
+    @social_array.push(twitter_array)
+    @social_array.push(soundcloud_array)
+    @social_array.push(google_news_array)
+    @social_array.push(youtube_array)
+
+    @social_array
+
+  end
+
+
+
   def get_twitter(keyword)
     client = Twitter::REST::Client.new do |config|
       config.consumer_key        = ENV['TWITTER_CONSUMER_KEY']
@@ -29,7 +54,6 @@ module ApplicationHelper
     search.each do |element|
       tweets_array.push(TwitterWrapper.new(element))
     end
-    binding.pry
     tweets_array
   end
 
@@ -43,7 +67,6 @@ module ApplicationHelper
       embed = client.get('/oembed', :url => element.uri, :show_comments => false, :maxheight => 200).html
       tracks_array.push(SoundCloudWrapper.new(element, embed))
     end
-    binding.pry
     tracks_array
   end
 
@@ -97,7 +120,6 @@ module ApplicationHelper
         instagram_array.push(InstagramWrapper.new(media_item))
       end
     end
-    binding.pry
     instagram_array
   end
 
