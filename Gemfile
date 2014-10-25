@@ -13,6 +13,8 @@ gem 'pg'
 gem 'simple_form'
 gem 'twitter'
 gem 'soundcloud'
+gem 'bing_translator'
+
 group :development do
   gem 'rails_layout'
 end

@@ -1,8 +1,9 @@
 class KiinosController < ApplicationController
   require 'time'
 
+
   def index
-    soundcloud
+    @resut = 'e'
   end
 
   def twitter
@@ -25,7 +26,6 @@ class KiinosController < ApplicationController
     end
     #binding.pry
     @result = tweets_array
-    #render :json => tweets_array
   end
 
   def soundcloud
@@ -43,7 +43,6 @@ class KiinosController < ApplicationController
       tracks_array.push(object)
     end
     @result = tracks_array[0]['embed_html'].html_safe
-    #@result = tracks_array
   end
 
 end
