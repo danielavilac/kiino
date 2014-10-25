@@ -1,7 +1,8 @@
 module ApplicationHelper
-    require 'time'
+  require 'TwitterWrapper'
+  require 'SoundCloudWrapper'
 
-   def get_twitter(keyword)
+  def get_twitter(keyword)
     client = Twitter::REST::Client.new do |config|
       config.consumer_key        = ENV['TWITTER_CONSUMER_KEY']
       config.consumer_secret     = ENV['TWITTER_CONSUMER_SECRET']
@@ -11,13 +12,10 @@ module ApplicationHelper
 
     tweets_array = Array.new
     search = client.search("##{keyword}", :result_type => "popular", :count => 1)
-    search.each do |tweet|
-      object = {}
-      object['date'] = tweet.created_at.strftime("%d %B %Y")
-      object['tweet'] = tweet.text
-      object['user'] = tweet.user.name
-      tweets_array.push(object)
+    search.each do |element|
+      tweets_array.push(TwitterWrapper.new(element))
     end
+    binding.pry
     tweets_array
   end
 
@@ -27,14 +25,11 @@ module ApplicationHelper
     
     tracks_array = Array.new
     tracks = client.get('/tracks', :q => "#{keyword}", :licence => 'cc-by-sa', :limit => 1)
-    tracks.each do |track|
-      object = {}
-      object['date'] = Time.parse(track.created_at).strftime("%d %B %Y")
-      object['title'] = track.title
-      object['user'] = track.user.username
-      object['embed_html'] = client.get('/oembed', :url => track.uri, :show_comments => false, :maxheight => 200).html
-      tracks_array.push(object)
+    tracks.each do |element|
+      embed = client.get('/oembed', :url => element.uri, :show_comments => false, :maxheight => 200).html
+      tracks_array.push(SoundCloudWrapper.new(element, embed))
     end
+    binding.pry
     tracks_array
   end
 
