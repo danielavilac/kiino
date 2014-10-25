@@ -315,4 +315,13 @@ module ApplicationHelper
       [colors[0], backgrounds[3]]
     ].sample
   end
+
+  def random_phrases
+    [
+      "LOOKING FOR SOMETHING?",
+      "WHAT MAKES YOU HAPPY?",
+      "WRITE SOMETHING",
+      "FIND SOMETHING"
+    ].sample
+  end
 end
