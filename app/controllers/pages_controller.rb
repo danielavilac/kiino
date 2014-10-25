@@ -1,21 +1,27 @@
 class PagesController < ApplicationController
   respond_to :html, :js
   require 'Matrix'
+  include ApplicationHelper
+  protect_from_forgery except: :search
 
-  def search; end
-
-  def index
-    big = 4
-    small = 9
+  def search
+    @search_results = makes_magic(params[:keyword])
+    @bigs = @search_results.select { |x| x.size == 4 }
+    @smalls = @search_results.select { |x| x.size == 1 }
+    c = Hash.new(0)
+    @search_results.map(&:class).each { |object| c[object] += 1 }
+    big = c[YouTubeWrapper] + c[InstagramWrapper] + c[SoundCloudWrapper]
+    small = c[FacebookWrapper] + c[TwitterWrapper] + c[NewsWrapper]
     grid = Matrix[[0, 0, 0, 0, 2],
                   [0, 0, 0, 0, 2],
                   [0, 0, 0, 0, 2],
                   [0, 0, 0, 0, 2],
                   [2, 2, 2, 2, 2]]
-    
     big.times { grid = add_big(grid) }
     @grid = grid
   end
+
+  def index; end
 
   private
 
