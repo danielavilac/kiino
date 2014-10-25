@@ -1,0 +1,18 @@
+<div class="tumblr-1 youtube" 
+     style="width: <%= width %>%;
+            height: <%= height %>%;
+            top: <%= top %>%;
+            background-color: <%= define_colors %>;
+            left: <%= left %>%;
+            border-color: <%= define_colors %>;
+            ">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="author" style="color: white;"><%= current.title.truncate(50) %></div>
+      <div class="date" style= "color: white;"><%= time_ago_in_words current.date %></div>
+      <div class="video">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/<%= current.youtube_id %>?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+</div>
