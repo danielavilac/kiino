@@ -26,7 +26,7 @@ module ApplicationHelper
     client = Soundcloud.new(:client_id => ENV['SOUNDCLOUD_CLIENT_ID'])
     
     tracks_array = Array.new
-    tracks = client.get('/tracks', :q => '#{keyword}', :licence => 'cc-by-sa', :limit => 1)
+    tracks = client.get('/tracks', :q => "#{keyword}", :licence => 'cc-by-sa', :limit => 1)
     tracks.each do |track|
       object = {}
       object['date'] = Time.parse(track.created_at).strftime("%d %B %Y")
