@@ -4,6 +4,7 @@ class TwitterWrapper
     @date = element.created_at.strftime("%d %B %Y")
     @tweet = element.text
     @user = element.user.name
+    @size = 1
   end
 
   def date
@@ -16,6 +17,10 @@ class TwitterWrapper
 
   def user
     @user
+  end
+  
+  def size
+    @size
   end
   
 end

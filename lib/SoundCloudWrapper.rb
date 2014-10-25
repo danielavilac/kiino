@@ -5,6 +5,7 @@ class SoundCloudWrapper
     @title = element.title
     @user = element.user.username
     @embed_html = embed
+    @size = 4
   end
 
   def date
@@ -18,5 +19,9 @@ class SoundCloudWrapper
   end
   def embed_html
     @embed_html
+  end
+  
+  def size
+    @size
   end
 end

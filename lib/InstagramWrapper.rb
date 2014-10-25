@@ -1,11 +1,15 @@
 class InstagramWrapper
+  require 'Date'
   
   def initialize(element)
     @id = element.id
     @author= element.user.username
     @tags = element.tags
-    @date = element.created_time
+    sec = element.created_time.to_i / 1000
+    time = Time.at(sec)
+    @date = time.strftime("%m %B %Y")
     @photo = element.images.standard_resolution.url
+    @size = 4
   end
 
   def id
@@ -26,6 +30,10 @@ class InstagramWrapper
 
   def photo
     @photo
+  end
+
+  def size
+    @size
   end
 
 end

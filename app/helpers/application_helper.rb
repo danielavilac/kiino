@@ -2,8 +2,9 @@ module ApplicationHelper
 
   require 'time'
   require 'rest_client'
-  require 'YouTube'
-  require 'News'
+
+  require 'YouTubeWrapper'
+  require 'NewsWrapper'
   require 'FacebookWrapper'
   require "InstagramWrapper"
   require 'TwitterWrapper'
@@ -19,7 +20,7 @@ module ApplicationHelper
 
   def makes_magic(keyword)
 
-    @social_array = Array.new()
+    social_array = Array.new()
 
     facebook_array = get_facebook(keyword)
     instagram_array = get_instagram(keyword)
@@ -28,18 +29,41 @@ module ApplicationHelper
     google_news_array = get_news(keyword)
     youtube_array = get_youtube(keyword)
 
-    @social_array.push(facebook_array)
-    @social_array.push(instagram_array)
-    @social_array.push(twitter_array)
-    @social_array.push(soundcloud_array)
-    @social_array.push(google_news_array)
-    @social_array.push(youtube_array)
+    #position 0 Facebook
+    social_array.push(facebook_array)
+    #position 1 Twitter
+    social_array.push(twitter_array)
+    #position 2 Google News
+    social_array.push(google_news_array)
+    #position 3 Instagram
+    social_array.push(instagram_array)
+    #position 4 SoundCloud
+    social_array.push(soundcloud_array)
+    #position 5 Youtune
+    social_array.push(youtube_array)
 
-    @social_array
+    @final_array = fill_map(social_array)
+    @final_array
 
   end
 
+  def fill_map(social_array)
+    final_array = Array.new
 
+    3.times do |index|
+      # final_array.push(social_array[0][index])
+      # final_array.push(social_array[1][index])
+      # final_array.push(social_array[2][index])
+    end
+
+    final_array.push(social_array[3][0])
+    # final_array.push(social_array[4][0])
+    # final_array.push(social_array[5][0])
+
+    # final_array.push(social_array[4][0])
+
+    final_array
+  end
 
   def get_twitter(keyword)
     client = Twitter::REST::Client.new do |config|
@@ -79,7 +103,7 @@ module ApplicationHelper
 
     entry = videos["feed"]["entry"]
       entry.each do |element|
-      you_tube_array.push(YouTube.new(element))
+      you_tube_array.push(YouTubeWrapper.new(element))
     end
     you_tube_array
   end
@@ -93,7 +117,7 @@ module ApplicationHelper
 
     entry = news["responseData"]["results"]
     entry.each do |element|
-        news_array.push(News.new(element))
+        news_array.push(NewsWrapper.new(element))
     end
     news_array
   end
