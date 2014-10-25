@@ -6,8 +6,11 @@ $( document ).ready(function(){
 });
 
 function resize() {
-  $('main').height($(window).height());
-  $('.main-search').css("margin-top", ($(document).height()/2) - $('.main-search').height()/2)
+  // $('main').height($(window).height());
+  // $('.main-search').css("margin-top", ($(document).height()/2) - $('.main-search').height()/2)
+  $(document).ready(function() {
+    $('#fullpage').fullpage();
+  });
   $('.main-search').focus();
   $('.main-search').select();
 }
