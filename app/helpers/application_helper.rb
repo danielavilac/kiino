@@ -3,7 +3,16 @@ module ApplicationHelper
   require 'rest_client'
   require 'YouTube'
   require 'News'
+  require 'FacebookWrapper'
+  require "InstagramWrapper"
+ 
+  Instagram.configure do |config|
+    config.client_id = ENV['INSTRAGRAM_CLIENT_ID']
+    config.client_secret = ENV['INSTAGRAM_CLIENT_SECRET']
+  end
+
   OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
+  
   def get_twitter(keyword)
     client = Twitter::REST::Client.new do |config|
       config.consumer_key        = ENV['TWITTER_CONSUMER_KEY']
@@ -69,4 +78,33 @@ module ApplicationHelper
     news_array
   end
 
+
+  def get_instagram(keyword)
+
+    instagram_array = Array.new()
+
+    client = Instagram.client(:access_token => ENV['INSTAGRAM_ACCESS_TOKEN'])
+    tags = client.tag_search(keyword)
+
+    if !tags.blank? 
+      for media_item in client.tag_recent_media(tags[0].name)
+        instagram_array.push(InstagramWrapper.new(media_item))
+      end
+    end
+    binding.pry
+    instagram_array
+  end
+
+  def get_facebook(keyword)
+    facebook_array = Array.new  
+    Koala.config.api_version = "v1.0"
+    oauth_access_token = ENV['FACEBOOK_ACCESS_TOKEN']
+    @graph = Koala::Facebook::API.new(oauth_access_token)
+    @post  = @graph.get_object("/search?type=post&q=%23#{keyword}&fields=caption,message,from,picture", {}, api_version: "v1.0")
+
+    @post.each do |element|
+      facebook_array.push(FacebookWrapper.new(element))
+    end
+    facebook_array
+  end
 end
