@@ -28,6 +28,10 @@ class YouTubeWrapper
   def size
     @size
   end
+  
+  def mood=(moods)
+    @mood = moods
+  end
 
   def mood
     @mood
