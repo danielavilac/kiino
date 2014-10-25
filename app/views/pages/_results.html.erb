@@ -1,0 +1,9 @@
+<% @grid.each_with_index do |value, row, column| %>
+  <% if value == 1 %>
+    <% current = @bigs.delete_at(0) %>
+    <%= render partial: "pages/frames/#{current.class.to_s.downcase}", locals: { top: 20 * row, left: 20 * column, width: 40, height: 40, current: current } %>
+  <% elsif value == 2 %>
+    <% current = @smalls.delete_at(0) %>
+    <%= render partial: "pages/frames/#{current.class.to_s.downcase}", locals: { top: 20 * row, left: 20 * column, width: 20, height: 20, current: current } %>
+  <% end %>
+<% end %>

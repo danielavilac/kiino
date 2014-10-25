@@ -6,14 +6,6 @@
     <% end %>
   </div>
   <div class="section">
-    <div class="remote">      
-      <% @grid.each_with_index do |value, row, column| %>
-        <% if value == 1 %>
-          <%= render partial: "pages/frames/big_frame", locals: { top: 20 * row, left: 20 * column, width: 40, height: 40 } %>
-        <% elsif value == 2 %>
-          <%= render partial: "pages/frames/small_frame", locals: { top: 20 * row, left: 20 * column, width: 20, height: 20 } %>
-        <% end %>
-      <% end %>
-    </div>
+    <div class="remote"></div>
   </div>
 </div>
