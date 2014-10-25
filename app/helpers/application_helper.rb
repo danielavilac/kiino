@@ -23,6 +23,8 @@ module ApplicationHelper
 
     array = keyword.split(/ /)
 
+    final_array = Array.new
+
     if (array.length == 3)
 
       key = ""
@@ -35,6 +37,7 @@ module ApplicationHelper
         thread2.join
 
         key = 'instagram'
+
       elsif array[1] == "in" && array[2] == "youtube"
         thread1 = Thread.new{social_array['youtube']= get_youtube(array[0])}
         thread2 = Thread.new{social_array['twitter']= get_twitter(array[0])}
@@ -72,12 +75,12 @@ module ApplicationHelper
           i = 0
           new_keyword = popular_keywords[rand(0..4)]
           more_tweets = get_twitter(new_keyword)
+          binding.popular_keywords
           while final_array.size < 25 && i < more_tweets.size
             final_array << more_tweets[i]
             i += 1
           end
         end
-
     end
     
     final_array
@@ -183,6 +186,7 @@ module ApplicationHelper
   end
 
   def get_twitter(keyword)
+    
     client = Twitter::REST::Client.new do |config|
       config.consumer_key        = ENV['TWITTER_CONSUMER_KEY']
       config.consumer_secret     = ENV['TWITTER_CONSUMER_SECRET']
@@ -191,7 +195,7 @@ module ApplicationHelper
     end
 
     tweets_array = Array.new
-    search = client.search("##{keyword}", :result_type => "mixed", :count => 30)
+    search = client.search("##{keyword}", :result_type => "popular", :count => 15)
     search.each do |element|
       tweets_array.push(TwitterWrapper.new(element))
     end
