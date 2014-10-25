@@ -13,6 +13,7 @@ gem 'pg'
 gem 'simple_form'
 gem "koala", "~> 1.10.0rc"
 gem 'fb_graph', '~> 2.7.17'
+gem 'instagram'
 
 group :development do
   gem 'rails_layout'

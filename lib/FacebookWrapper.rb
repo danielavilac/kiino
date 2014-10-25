@@ -1,4 +1,4 @@
-class Facebook
+class FacebookWrapper
   
   def initialize(element)
     @id = element["id"]
