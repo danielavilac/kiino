@@ -17,6 +17,7 @@ gem 'instagram'
 
 group :development do
   gem 'rails_layout'
+  gem 'foreman'
 end
 group :development, :test do
   gem 'factory_girl_rails'
