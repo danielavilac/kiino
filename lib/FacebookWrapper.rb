@@ -10,6 +10,8 @@ class FacebookWrapper
     @date = time.strftime("%m %B %Y")
     @size = 1
     @mood = nil
+    @language = nil
+    @translated_text = nil
   end
 
   def id
@@ -40,8 +42,20 @@ class FacebookWrapper
     @mood
   end
 
+  def language
+    @language
+  end
+
+  def transalated_text
+    @translated_text
+  end
+
   def data
-    @message
+    if (@language == 'en') 
+      @message
+    else
+      @transalated_text
+    end
   end
 
 

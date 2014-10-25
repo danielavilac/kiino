@@ -6,6 +6,8 @@ class NewsWrapper
   	@url = element["unescapedUrl"]
     @size = 1
     @mood = nil
+    @language = nil
+    @translated_text = nil
   end
 
   def date
@@ -28,7 +30,19 @@ class NewsWrapper
     @mood
   end
 
+  def language
+    @language
+  end
+
+  def transalated_text
+    @translated_text
+  end
+
   def data
-    @title
+    if (@language == 'en') 
+      @title
+    else
+      @transalated_text
+    end
   end
 end
