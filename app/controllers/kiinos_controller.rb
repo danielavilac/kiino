@@ -1,5 +1,5 @@
 class KiinosController < ApplicationController
-  
+  require 'time'
 
   def index
     soundcloud
@@ -15,15 +15,16 @@ class KiinosController < ApplicationController
     end
 
     tweets_array = Array.new
-    search = client.search("#pizza", :result_type => "popular").take(5)
+    search = client.search("#pizza", :result_type => "popular", :count => 1)
     search.each do |tweet|
       object = {}
-      object['date'] = tweet.created_at
+      object['date'] = tweet.created_at.strftime("%d %B %Y")
       object['tweet'] = tweet.text
       object['user'] = tweet.user.name
       tweets_array.push(object)
     end
     #binding.pry
+    @result = tweets_array
     #render :json => tweets_array
   end
 
@@ -35,15 +36,14 @@ class KiinosController < ApplicationController
     tracks = client.get('/tracks', :q => 'pizza', :licence => 'cc-by-sa', :limit => 1)
     tracks.each do |track|
       object = {}
-      object['date'] = track.created_at
+      object['date'] = Time.parse(track.created_at).strftime("%d %B %Y")
       object['title'] = track.title
       object['user'] = track.user.username
-      object['embed_info'] = client.get('/oembed', :url => track.uri, :show_comments => false)
+      object['embed_html'] = client.get('/oembed', :url => track.uri, :show_comments => false, :maxheight => 200).html
       tracks_array.push(object)
     end
-    #@result = tracks_array[0]['embed_info']['html'].html_safe
-    @result = tracks_array[0]['embed_info']
-
+    @result = tracks_array[0]['embed_html'].html_safe
+    #@result = tracks_array
   end
 
 end
