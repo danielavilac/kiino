@@ -1,4 +1,4 @@
 Rails.application.routes.draw do
-  get 'kiinos/index'
-  root 'kiinos#index'
+  root 'pages#index'
+  get "search", to: "pages#search", as: "search"
 end
