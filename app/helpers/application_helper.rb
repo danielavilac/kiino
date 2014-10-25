@@ -22,30 +22,23 @@ module ApplicationHelper
 
     social_array = Array.new()
 
-    facebook_array = get_facebook(keyword)
-    instagram_array = get_instagram(keyword)
-    twitter_array = get_twitter(keyword)
-    soundcloud_array = get_soundcloud(keyword)
-    google_news_array = get_news(keyword)
-    youtube_array = get_youtube(keyword)
+    thread1 = Thread.new{social_array.push(get_facebook(keyword))}
+    thread2 = Thread.new{social_array.push(get_twitter(keyword))}
+    thread3 = Thread.new{social_array.push(get_news(keyword))}
+    thread4 = Thread.new{social_array.push(get_instagram(keyword))}
+    thread5 = Thread.new{social_array.push(get_soundcloud(keyword))}
+    thread6 = Thread.new{social_array.push(get_youtube(keyword))}
 
-    #position 0 Facebook
-    social_array.push(facebook_array)
-    #position 1 Twitter
-    social_array.push(twitter_array)
-    #position 2 Google News
-    social_array.push(google_news_array)
-    #position 3 Instagram
-    social_array.push(instagram_array)
-    #position 4 SoundCloud
-    social_array.push(soundcloud_array)
-    #position 5 Youtune
-    social_array.push(youtube_array)
+    thread1.join
+    thread2.join
+    thread3.join
+    thread4.join
+    thread5.join
+    thread6.join
 
-    @final_array = fill_map(social_array)
+    final_array = fill_map(social_array)
 
-
-    @final_array
+    final_array
 
   end
 
