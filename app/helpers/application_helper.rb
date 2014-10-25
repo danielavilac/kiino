@@ -1,7 +1,10 @@
 module ApplicationHelper
-    require 'time'
+  require 'time'
+  require 'rest_client'
+  require 'YouTube'
+  require 'News'
 
-   def get_twitter(keyword)
+  def get_twitter(keyword)
     client = Twitter::REST::Client.new do |config|
       config.consumer_key        = ENV['TWITTER_CONSUMER_KEY']
       config.consumer_secret     = ENV['TWITTER_CONSUMER_SECRET']
@@ -36,6 +39,34 @@ module ApplicationHelper
       tracks_array.push(object)
     end
     tracks_array
+  end
+
+  def get_youtube(keyword)
+    you_tube_array = Array.new
+    uri = "https://gdata.youtube.com/feeds/api/videos?q=#{keyword}&orderby=published&alt=json"
+    rest_resource = RestClient::Resource.new(uri)
+    users = rest_resource.get
+    videos = JSON.parse(users)
+
+    entry = videos["feed"]["entry"]
+      entry.each do |element|
+      you_tube_array.push(YouTube.new(element))
+    end
+    you_tube_array
+  end
+
+  def get_news(keyword)
+    news_array = Array.new
+    uri = "https://ajax.googleapis.com/ajax/services/search/news?v=1.0&q=#{keyword}"
+    rest_resource = RestClient::Resource.new(uri)
+    users = rest_resource.get
+    news = JSON.parse(users)
+
+    entry = news["responseData"]["results"]
+    entry.each do |element|
+        news_array.push(News.new(element))
+    end
+    news_array
   end
 
 end
