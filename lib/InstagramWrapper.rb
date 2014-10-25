@@ -5,7 +5,7 @@ class InstagramWrapper
     @id = element.id
     @author= element.user.username
     @tags = element.tags
-    sec = element.created_time.to_i / 1000
+    sec = element.created_time.to_i
     time = Time.at(sec)
     @date = time.strftime("%m %B %Y")
     @photo = element.images.standard_resolution.url
@@ -65,6 +65,10 @@ class InstagramWrapper
 
   def language=(text)
     @language = text
+  end
+
+  def size=(text)
+    @size = text
   end
   
 end
