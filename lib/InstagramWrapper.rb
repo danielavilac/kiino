@@ -11,6 +11,8 @@ class InstagramWrapper
     @photo = element.images.standard_resolution.url
     @size = 4
     @mood = nil
+    @language = nil
+    @translated_text = nil
   end
 
   def id
@@ -41,7 +43,19 @@ class InstagramWrapper
     @mood
   end
 
+  def language
+    @language
+  end
+
+  def transalated_text
+    @translated_text
+  end
+
   def data
-    @tags.to_s
+    if (@language == 'en') 
+      @tags.to_s
+    else
+      @transalated_text
+    end
   end
 end

@@ -7,6 +7,8 @@ class SoundCloudWrapper
     @embed_html = embed
     @size = 4
     @mood = nil
+    @language = nil
+    @translated_text = nil
   end
 
   def date
@@ -33,7 +35,19 @@ class SoundCloudWrapper
     @mood
   end
 
+  def language
+    @language
+  end
+
+  def transalated_text
+    @translated_text
+  end
+
   def data
-    @title
+    if (@language == 'en') 
+      @title
+    else
+      @transalated_text
+    end
   end
 end

@@ -130,9 +130,15 @@ module ApplicationHelper
     movie_sentiment = t.sentiment(txt: text, model: 'en-general')
 
   end
+
   def get_language(keyword)
     translator = BingTranslator.new('global_hackathon', 'iBUAYiP/ycj3WeEeDiz35nX8Ns9x/OXQJCKWXOt3UAc=')
     locale = translator.detect "#{keyword}"
+  end
+
+  def get_translation(keyword)
+    translator = BingTranslator.new('global_hackathon', 'iBUAYiP/ycj3WeEeDiz35nX8Ns9x/OXQJCKWXOt3UAc=')
+    english = translator.translate "#{keyword}", :to => 'en'
   end
 
   def get_instagram(keyword)

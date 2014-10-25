@@ -8,6 +8,9 @@ class YouTubeWrapper
   	@url = element["link"][0]["href"]
     @size = 4
     @mood = nil
+    @language = nil
+    @translated_text = nil
+
   end
 
   def date
@@ -30,7 +33,19 @@ class YouTubeWrapper
     @mood
   end
 
+  def language
+    @language
+  end
+
+  def transalated_text
+    @translated_text
+  end
+
   def data
-    @title
+    if (@language == 'en') 
+      @title
+    else
+      @transalated_text
+    end
   end
 end

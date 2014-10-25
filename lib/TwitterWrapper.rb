@@ -6,6 +6,8 @@ class TwitterWrapper
     @user = element.user.name
     @size = 1
     @mood = nil
+    @language = nil
+    @translated_text = nil
 
   end
 
@@ -29,8 +31,20 @@ class TwitterWrapper
     @mood
   end
 
+  def language
+    @language
+  end
+
+  def transalated_text
+    @translated_text
+  end
+
   def data
-    @tweet
+    if (@language == 'en') 
+      @tweet
+    else
+      @transalated_text
+    end
   end
   
 end
