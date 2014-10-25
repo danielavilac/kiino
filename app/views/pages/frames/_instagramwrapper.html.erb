@@ -3,6 +3,10 @@
             height: <%= height %>%;
             top: <%= top %>%;
             left: <%= left %>%;
-            background-image: url('<%= current.photo %>');">
-            <div class="time"><%= time_ago_in_words current.date %></div>
+            background-image: url('<%= current.photo %>');
+            border-color: <%= define_colors %>;
+            ">
+            <div class="author" style="color: <%= define_colors %>;"><%= current.author %></div>
+            <div class="date" style= "color: <%= define_colors %>;"><%= time_ago_in_words current.date %></div>
+
 </div>

@@ -1,3 +1,24 @@
 <div class="tumblr-1" style="background-color: <%= ["red", "orange", "blue", "green"].sample %>; width: <%= width %>%; height: <%= height %>%; top: <%= top %>%; left: <%= left %>%;">
   <p><%= current.title %></p>
 </div>
+
+<div class="tumblr-1 youtube" 
+     style="width: <%= width %>%;
+            height: <%= height %>%;
+            top: <%= top %>%;
+            background-color: <%= define_colors %>;
+            left: <%= left %>%;
+            border-color: <%= define_colors %>;
+            ">
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="video final">
+        <%= current.embed_html.html_safe %>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
