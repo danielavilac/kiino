@@ -11,9 +11,13 @@ gem 'spring',        group: :development
 gem 'bootstrap-sass'
 gem 'pg'
 gem 'simple_form'
+gem 'rest-client'
 gem 'twitter'
 gem 'soundcloud'
 gem 'bing_translator'
+gem "koala", "~> 1.10.0rc"
+gem 'fb_graph', '~> 2.7.17'
+gem 'instagram'
 
 group :development do
   gem 'rails_layout'
