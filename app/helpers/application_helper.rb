@@ -38,8 +38,14 @@
 
     final_array = fill_map(social_array)
 
-    # fill_languages(final_array)
-    fill_moods(final_array)
+    # thread_l = Thread.new{fill_languages(final_array)}
+    # thread_m = Thread.new{fill_moods(final_array)}
+
+    # thread_l.join
+    # thread_m.join
+
+    fill_languages(final_array)
+    #fill_moods(final_array)
 
     final_array
 
@@ -47,23 +53,72 @@
 
   def fill_languages(final_array)
 
-    final_array.each do|final_element| 
-      # binding.pry
-      language = get_language(final_element.data)
-      if language != 'en'
-        final_element.language = language
-        final_element.data =  'sa'
-      else 
-        final_element.language ='en'
-      end
-    end 
+    arr = []
+    arr2 = []
+    arr3 = []
+
+    (0..7).each do |i|
+      arr[i] = Thread.new{ 
+        language = get_language(final_array[i].data)
+        if language != 'en'
+          final_array[i].language = language
+          final_array[i].data =  'sa'
+        end 
+      }
+    end
+
+    arr.each {|t| t.join;}
+
+    (8..15).each do |i|
+      arr2[i] = Thread.new{ 
+        language = get_language(final_array[i].data)
+        if language != 'en'
+          final_array[i].language = language
+          final_array[i].data =  'sa'
+        end 
+      }
+    end
+
+    binding.pry
+
+    arr2.each {|t2| t2.join;}
+
+    (16..23).each do |i|
+      arr3[i] = Thread.new{ 
+        language = get_language(final_array[i].data)
+        if language != 'en'
+          final_array[i].language = language
+          final_array[i].data =  'sa'
+        end 
+      }
+    end
+    arr3.each {|t3| t3.join;}
+
+    final_array[24].mood = get_mood(final_array[24].data)
   end
 
   def fill_moods(final_array)
+    arr = []
+    arr2 = []
+    arr3 = []
 
-    final_array.each do|final_element| 
-      final_element.mood = get_mood(final_element.data)
-    end 
+    (0..7).each do |i|
+      arr[i] = Thread.new{ final_array[i].mood = get_mood(final_array[i].data)}
+    end
+    arr.each {|t| t.join;}
+
+    (8..15).each do |i|
+      arr2[i] = Thread.new{ final_array[i].mood = get_mood(final_array[i].data)}
+    end
+    arr2.each {|t| t.join;}
+
+    (16..23).each do |i|
+      arr3[i] = Thread.new{ final_array[i].mood = get_mood(final_array[i].data)}
+    end
+    arr3.each {|t| t.join;}
+
+    final_array[24].mood = get_mood(final_array[24].data)
+
   end
 
 
@@ -160,7 +215,7 @@
     client = Soundcloud.new(:client_id => ENV['SOUNDCLOUD_CLIENT_ID'])
     
     tracks_array = Array.new
-    tracks = client.get('/tracks', :q => "#{keyword}", :licence => 'cc-by-sa', :limit => 3)
+    tracks = client.get('/tracks', :q => "#{keyword}", :licence => 'cc-by-sa', :limit => 2)
     tracks.each do |element|
       embed = client.get('/oembed', :url => element.uri, :show_comments => false, :maxheight => 200).html
       tracks_array.push(SoundCloudWrapper.new(element, embed))
