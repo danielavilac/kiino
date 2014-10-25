@@ -75,7 +75,7 @@ module ApplicationHelper
       twitter_elements_acum += 3 - facebook_array_length
       facebook_array_length.times do |index|
         final_array.push(social_array['facebook'][index])
-        #social_array['facebook'].delete_at(index)
+        social_array['facebook'].delete_at(index)
       end
     else
       3.times do |index|
