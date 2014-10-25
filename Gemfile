@@ -11,6 +11,8 @@ gem 'spring',        group: :development
 gem 'bootstrap-sass'
 gem 'pg'
 gem 'simple_form'
+gem 'twitter'
+gem 'soundcloud'
 group :development do
   gem 'rails_layout'
 end
