@@ -46,17 +46,20 @@ class FacebookWrapper
     @language
   end
 
-  def transalated_text
+  def translated_text
     @translated_text
   end
 
   def data
-    if (@language == 'en') 
       @message
-    else
-      @transalated_text
-    end
   end
 
+  def data=(text)
+    @translated_text = text
+  end
+
+  def language=(text)
+    @language = text
+  end
 
 end

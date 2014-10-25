@@ -29,20 +29,26 @@ class NewsWrapper
   def mood
     @mood
   end
-
+  
+  def language=(text)
+    @language = text
+  end
+  
   def language
     @language
   end
 
-  def transalated_text
+  def translated_text
     @translated_text
   end
 
   def data
-    if (@language == 'en') 
-      @title
-    else
-      @transalated_text
-    end
+    @title
   end
+
+  def data=(text)
+     @translated_text = text
+  end
+
+ 
 end
