@@ -1,9 +1,21 @@
 module ApplicationHelper
+
   require 'time'
   require 'rest_client'
   require 'YouTube'
   require 'News'
+  require 'FacebookWrapper'
+  require "InstagramWrapper"
+  require 'TwitterWrapper'
+  require 'SoundCloudWrapper'
+ 
+  Instagram.configure do |config|
+    config.client_id = ENV['INSTRAGRAM_CLIENT_ID']
+    config.client_secret = ENV['INSTAGRAM_CLIENT_SECRET']
+  end
 
+  OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
+  
   def get_twitter(keyword)
     client = Twitter::REST::Client.new do |config|
       config.consumer_key        = ENV['TWITTER_CONSUMER_KEY']
@@ -14,13 +26,10 @@ module ApplicationHelper
 
     tweets_array = Array.new
     search = client.search("##{keyword}", :result_type => "popular", :count => 1)
-    search.each do |tweet|
-      object = {}
-      object['date'] = tweet.created_at.strftime("%d %B %Y")
-      object['tweet'] = tweet.text
-      object['user'] = tweet.user.name
-      tweets_array.push(object)
+    search.each do |element|
+      tweets_array.push(TwitterWrapper.new(element))
     end
+    binding.pry
     tweets_array
   end
 
@@ -30,14 +39,11 @@ module ApplicationHelper
     
     tracks_array = Array.new
     tracks = client.get('/tracks', :q => "#{keyword}", :licence => 'cc-by-sa', :limit => 1)
-    tracks.each do |track|
-      object = {}
-      object['date'] = Time.parse(track.created_at).strftime("%d %B %Y")
-      object['title'] = track.title
-      object['user'] = track.user.username
-      #object['embed_html'] = client.get('/oembed', :url => track.uri, :show_comments => false, :maxheight => 200).html
-      tracks_array.push(object)
+    tracks.each do |element|
+      embed = client.get('/oembed', :url => element.uri, :show_comments => false, :maxheight => 200).html
+      tracks_array.push(SoundCloudWrapper.new(element, embed))
     end
+    binding.pry
     tracks_array
   end
 
@@ -79,4 +85,32 @@ module ApplicationHelper
     locale = translator.detect "#{keyword}"
   end
 
+  def get_instagram(keyword)
+
+    instagram_array = Array.new()
+
+    client = Instagram.client(:access_token => ENV['INSTAGRAM_ACCESS_TOKEN'])
+    tags = client.tag_search(keyword)
+
+    if !tags.blank? 
+      for media_item in client.tag_recent_media(tags[0].name)
+        instagram_array.push(InstagramWrapper.new(media_item))
+      end
+    end
+    binding.pry
+    instagram_array
+  end
+
+  def get_facebook(keyword)
+    facebook_array = Array.new  
+    Koala.config.api_version = "v1.0"
+    oauth_access_token = ENV['FACEBOOK_ACCESS_TOKEN']
+    @graph = Koala::Facebook::API.new(oauth_access_token)
+    @post  = @graph.get_object("/search?type=post&q=%23#{keyword}&fields=caption,message,from,picture", {}, api_version: "v1.0")
+
+    @post.each do |element|
+      facebook_array.push(FacebookWrapper.new(element))
+    end
+    facebook_array
+  end
 end
