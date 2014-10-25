@@ -38,7 +38,7 @@ module ApplicationHelper
 
     final_array = fill_map(social_array)
 
-    #fill_languages(final_array)
+    fill_languages(final_array)
 
     final_array
 
@@ -47,11 +47,7 @@ module ApplicationHelper
   def fill_languages(final_array)
 
     final_array.each do|final_element| 
-
-      if final_element.nil?
-        break;
-      end
-
+      # binding.pry
       language = get_language(final_element.data)
       if language != 'en'
         final_element.language = language
@@ -201,6 +197,7 @@ module ApplicationHelper
   def get_language(keyword)
     translator = BingTranslator.new('global_hackathon', 'iBUAYiP/ycj3WeEeDiz35nX8Ns9x/OXQJCKWXOt3UAc=')
     locale = translator.detect "#{keyword}"
+    locale
   end
 
   def get_translation(keyword)

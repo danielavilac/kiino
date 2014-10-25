@@ -4,7 +4,7 @@ class FacebookWrapper
   def initialize(element)
     @id = element["id"]
     @author= element["from"]["name"]
-    @message = (element["message"].nil? ? (element["caption"].nil? ? "": element["caption"]): element["message"])
+    @message = (element["message"].nil? ? (element["caption"].nil? ? "Not available": element["caption"]): element["message"])
     @photo = (element["picture"].nil? ? "" : element["picture"])
     time = Time.parse(element["created_time"])
     @date = time.strftime("%m %B %Y")
