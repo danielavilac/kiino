@@ -11,6 +11,7 @@ gem 'spring',        group: :development
 gem 'bootstrap-sass'
 gem 'pg'
 gem 'simple_form'
+gem 'rest-client'
 group :development do
   gem 'rails_layout'
 end

@@ -1,2 +1,15 @@
 <h1>Kiinos#index</h1>
 <p>Find me in app/views/kiinos/index.html.erb</p>
+<%@youtube.each do |element|%>
+	<p><%=element.title%></p>
+	<p><%=element.url%></p>
+	<p><%=element.date%></p>
+	<p>-----------------</p>
+<%end%>
+
+<%@news.each do |element|%>
+	<p><%=element.title%></p>
+	<p><%=element.url%></p>
+	<p><%=element.date%></p>
+	<p>-----------------</p>
+<%end%>
